@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${USERS_DB_HOST:localhost}:${USERS_DB_PORT:5432}/${USERS_DB_NAME:users_db}
+    username: ${USERS_DB_USER}
+    password: ${USERS_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
