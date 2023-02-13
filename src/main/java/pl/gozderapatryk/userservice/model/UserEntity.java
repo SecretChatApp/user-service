@@ -13,8 +13,9 @@ import lombok.*;
 @Table(name = "users")
 public class UserEntity extends AuditableEntity {
     @Id
-    @GeneratedValue(generator="user_entity_seq")
-    @SequenceGenerator(name="user_entity_seq", sequenceName="USER_ENTITY_SEQ", allocationSize=1)
+    @SequenceGenerator(name = "UsersIdGen", sequenceName = "USERS_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UsersIdGen")
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
     @Column(name = "first_name")
@@ -26,9 +27,12 @@ public class UserEntity extends AuditableEntity {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password", nullable = false, length = 40)
     private String password;
+
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
 }

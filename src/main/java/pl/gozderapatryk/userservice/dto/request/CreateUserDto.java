@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Value;
 
 @Value
-@Builder
+@Builder(toBuilder = true)
 public class CreateUserDto {
      @NotNull
      @NotBlank
@@ -23,4 +23,5 @@ public class CreateUserDto {
      @NotNull
      @NotBlank
      String passwordConfirmation;
+     String username;
 }

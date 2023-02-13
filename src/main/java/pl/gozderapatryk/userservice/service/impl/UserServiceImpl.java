@@ -11,6 +11,8 @@ import pl.gozderapatryk.userservice.mapper.UserMapper;
 import pl.gozderapatryk.userservice.repository.UserRepository;
 import pl.gozderapatryk.userservice.service.UserService;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -26,14 +28,20 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistsException(String.format("user with the following email %s already exists", createUserDto.getEmail()));
         }
 
-        if (createUserDto.getEmail().equals(createUserDto.getEmailConfirmation())) {
+        if (!createUserDto.getEmail().equals(createUserDto.getEmailConfirmation())) {
             throw new BusinessValidationException("password and password confirmation must be the same");
         }
 
-        if (createUserDto.getPassword().equals(createUserDto.getPasswordConfirmation())) {
+        if (!createUserDto.getPassword().equals(createUserDto.getPasswordConfirmation())) {
             throw new BusinessValidationException("email and email confirmation must be the same");
         }
 
-        return userMapper.mapUserToUserDto(userRepository.save(userMapper.mapCreateUserDtoToUserEntity(createUserDto)));
+        var userToSave = userMapper.mapCreateUserDtoToUserEntity(createUserDto);
+        userToSave.setActive(false);
+        if(Objects.isNull(createUserDto.getUsername())) {
+            userToSave.setUsername(createUserDto.getEmail().split("@")[0]);
+        }
+
+        return userMapper.mapUserToUserDto(userRepository.save(userToSave));
     }
 }

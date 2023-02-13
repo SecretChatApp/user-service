@@ -4,7 +4,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet id="001_changeset" author="Patryk Gozdera">
-        <sqlFile path="db/changelog/changes/init-database.sql"/>
+    <changeSet id="0.0.1-setup" author="Patryk Gozdera">
+        <sqlFile path="db/changelog/sql/liquibase.setup.sql"
+                 splitStatements="true"
+                 endDelimiter="/"
+                 stripComments="true"/>
     </changeSet>
 </databaseChangeLog>
