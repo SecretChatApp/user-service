@@ -1,7 +1,12 @@
 server:
   port: 0
+  servlet:
+    context-path: /internal/api
 
 spring:
   application:
     name: @project.build.finalName@
     version: @project.version@
+    description: @project.description@
+  liquibase:
+    change-log: db/changelog/db.changelog-master.xml
